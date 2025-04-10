@@ -7,6 +7,12 @@ const Home = () => {
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
+  const teamMembers = [
+    { name: "Prince Kumar", regNo: "12308453" },
+    { name: "Mohamed Waseem Kurikkal Mp", regNo: "12318315" },
+    { name: "Adnan Mohammed  Rafi", regNo: "12313956" },
+  ];
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPrompt(e.target.value);
   };
@@ -55,7 +61,11 @@ const Home = () => {
               value={prompt}
               onChange={handleChange}
               required
-              onInvalid={(e) => e.currentTarget.setCustomValidity("Please enter your inspiration.")}
+              onInvalid={(e) =>
+                e.currentTarget.setCustomValidity(
+                  "Please enter your inspiration."
+                )
+              }
               onInput={(e) => e.currentTarget.setCustomValidity("")}
             />
           </div>
@@ -92,6 +102,38 @@ const Home = () => {
           </div>
         ))}
       </div>
+      {/* Image Gallery */}
+      <div className="flex flex-col items-center flex-wrap justify-center gap-6">
+        {images.map((img, idx) => (
+          <div key={idx} className="w-full sm:w-5/6 md:w-[50%] lg:w-[70%]">
+            <img
+              src={img}
+              alt={`Generated AI ${idx}`}
+              className="rounded-lg shadow-lg w-full h-auto"
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Team Info Section - PLACE THIS HERE */}
+      <section className="mt-20">
+        <h2 className="text-2xl font-bold text-gray-800 mb-8 text-center border-b pb-4">
+          Meet the Team
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          {teamMembers.map((member, index) => (
+            <div
+              key={index}
+              className="bg-white border border-gray-200 rounded-2xl shadow-md p-6 transition-transform hover:-translate-y-1 hover:shadow-lg"
+            >
+              <h3 className="text-lg font-semibold text-indigo-600 mb-2">
+                {member.name}
+              </h3>
+              <p className="text-gray-500 text-sm">Reg No: {member.regNo}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
